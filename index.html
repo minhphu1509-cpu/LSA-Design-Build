@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E LSA DESIGN & BUILD (ARCHITECTURE & INTERIOR)</title>
+    <meta name="description" content="LSA Design & Build – đơn vị hàng đầu trong lĩnh vực Kiến trúc và Nội thất">
+    <meta name="keywords" content="aikientruc,kientrucdep,noithatdep,aikientruc,ainoithat">
+    <meta property="og:title" content="E LSA DESIGN & BUILD (ARCHITECTURE & INTERIOR)">
+    <meta property="og:description" content="LSA Design & Build – đơn vị hàng đầu trong lĩnh vực Kiến trúc và Nội thất">
+    
+    <!-- Tailwind & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-white font-inter overflow-x-hidden" x-data="siteData()" x-init="init()">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" :class="{'py-2': scrolled, 'py-5': !scrolled}" @scroll.window="scrolled = (window.pageYOffset > 50)">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-widest uppercase border-2 border-white/20 px-4 py-1 hover:bg-white hover:text-slate-900 transition-all duration-300">LSA Design</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-slate-400 transition-colors">Trang chủ</a>
+                <a href="#about" class="hover:text-slate-400 transition-colors">Giới thiệu</a>
+                <a href="#services" class="hover:text-slate-400 transition-colors">Dịch vụ</a>
+                <a href="#projects" class="hover:text-slate-400 transition-colors">Dự án</a>
+                <a href="#contact" class="bg-white/10 border border-white/20 px-5 py-2 rounded-full hover:bg-white hover:text-slate-900 transition-all">Liên hệ</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl" @click="mobileMenu = !mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" class="md:hidden glass-card absolute top-full left-0 w-full p-4 flex flex-col space-y-4 text-center" x-transition>
+            <a href="#home" @click="mobileMenu = false">Trang chủ</a>
+            <a href="#services" @click="mobileMenu = false">Dịch vụ</a>
+            <a href="#projects" @click="mobileMenu = false">Dự án</a>
+            <a href="#contact" @click="mobileMenu = false">Liên hệ</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background Placeholder -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" alt="Luxury Home" class="w-full h-full object-cover animate-slow-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <span class="block text-sm md:text-base tracking-[0.3em] uppercase mb-4 text-slate-300 fade-in-up" style="animation-delay: 0.2s" x-text="content.hero_subtitle">ARCHITECTURE & INTERIOR</span>
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 leading-tight fade-in-up glass-text" style="animation-delay: 0.4s" x-text="content.hero_title">KIẾN TẠO KHÔNG GIAN<br>NÂNG TẦM CUỘC SỐNG</h1>
+            <p class="max-w-2xl mx-auto text-slate-300 mb-10 text-lg fade-in-up" style="animation-delay: 0.6s" x-text="content.hero_desc">LSA Design & Build mang đến những giải pháp kiến trúc và nội thất đẳng cấp, biến ngôi nhà mơ ước của bạn thành hiện thực.</p>
+            <a href="#projects" class="inline-block px-8 py-4 bg-white text-slate-900 font-bold uppercase tracking-wider hover:bg-slate-300 transition-all transform hover:scale-105 fade-in-up" style="animation-delay: 0.8s">Xem dự án</a>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-2xl text-white/50"></i>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">DỊCH VỤ CỦA CHÚNG TÔI</h2>
+                <div class="w-24 h-1 bg-white mx-auto mb-4"></div>
+                <p class="text-slate-400" x-text="content.service_subtitle">Giải pháp toàn diện từ thiết kế đến thi công</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="glass-card p-8 group hover:-translate-y-2 transition-all duration-300 scroll-element">
+                    <div class="text-4xl text-white/80 mb-6 group-hover:text-blue-400 transition-colors">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Thiết kế Kiến Trúc</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Sáng tạo không gian sống độc bản, tối ưu công năng và thẩm mỹ theo phong cách riêng của gia chủ.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="glass-card p-8 group hover:-translate-y-2 transition-all duration-300 scroll-element delay-100">
+                    <div class="text-4xl text-white/80 mb-6 group-hover:text-blue-400 transition-colors">
+                        <i class="fa-solid fa-couch"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Thiết kế Nội Thất</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Mang lại sự sang trọng, tinh tế trong từng chi tiết nội thất, lựa chọn vật liệu cao cấp nhất.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="glass-card p-8 group hover:-translate-y-2 transition-all duration-300 scroll-element delay-200">
+                    <div class="text-4xl text-white/80 mb-6 group-hover:text-blue-400 transition-colors">
+                        <i class="fa-solid fa-helmet-safety"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Thi công Trọn gói</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Cam kết chất lượng thi công chuẩn xác theo bản vẽ, đảm bảo tiến độ và chi phí tối ưu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-slate-900 relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 scroll-element">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">DỰ ÁN TIÊU BIỂU</h2>
+                    <p class="text-slate-400">Khám phá những công trình mang dấu ấn LSA Design</p>
+                </div>
+                <div class="flex space-x-4 mt-6 md:mt-0">
+                    <button @click="filterProjects('all')" :class="{'bg-white text-slate-900': activeFilter === 'all', 'bg-transparent text-slate-400 border border-slate-600': activeFilter !== 'all'}" class="px-4 py-2 rounded-full text-sm transition-all">Tất cả</button>
+                    <button @click="filterProjects('villa')" :class="{'bg-white text-slate-900': activeFilter === 'villa', 'bg-transparent text-slate-400 border border-slate-600': activeFilter !== 'villa'}" class="px-4 py-2 rounded-full text-sm transition-all">Biệt thự</button>
+                    <button @click="filterProjects('townhouse')" :class="{'bg-white text-slate-900': activeFilter === 'townhouse', 'bg-transparent text-slate-400 border border-slate-600': activeFilter !== 'townhouse'}" class="px-4 py-2 rounded-full text-sm transition-all">Nhà phố</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="project in filteredProjects" :key="project.id">
+                    <div class="group relative overflow-hidden rounded-lg cursor-pointer h-80 scroll-element">
+                        <img :src="project.image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" :alt="project.title">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <span class="text-blue-400 text-xs uppercase tracking-wider mb-2" x-text="project.category"></span>
+                            <h3 class="text-xl font-bold text-white mb-2" x-text="project.title"></h3>
+                            <p class="text-slate-300 text-sm line-clamp-2" x-text="project.desc"></p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-24 bg-gradient-to-b from-slate-900 to-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 scroll-element">
+                <h2 class="text-3xl md:text-4xl font-bold">QUY TRÌNH LÀM VIỆC</h2>
+            </div>
+            <div class="relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-700 -translate-y-1/2 z-0"></div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="text-center scroll-element">
+                        <div class="w-16 h-16 bg-slate-800 border border-slate-600 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg shadow-black/50">
+                            01
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Tư vấn & Khảo sát</h4>
+                        <p class="text-sm text-slate-400 px-4">Lắng nghe nhu cầu và khảo sát hiện trạng thực tế.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="text-center scroll-element delay-100">
+                        <div class="w-16 h-16 bg-slate-800 border border-slate-600 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg shadow-black/50">
+                            02
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Thiết kế Concept</h4>
+                        <p class="text-sm text-slate-400 px-4">Lên ý tưởng, layout 2D và phối cảnh 3D.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="text-center scroll-element delay-200">
+                        <div class="w-16 h-16 bg-slate-800 border border-slate-600 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg shadow-black/50">
+                            03
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Triển khai Kỹ thuật</h4>
+                        <p class="text-sm text-slate-400 px-4">Bản vẽ chi tiết phục vụ thi công và dự toán.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="text-center scroll-element delay-300">
+                        <div class="w-16 h-16 bg-white text-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg shadow-white/20">
+                            04
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Thi công & Bàn giao</h4>
+                        <p class="text-sm text-slate-400 px-4">Giám sát chặt chẽ, hoàn thiện và bàn giao chìa khóa trao tay.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <!-- Decorative Blobs -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div class="scroll-element">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">LIÊN HỆ VỚI CHÚNG TÔI</h2>
+                    <p class="text-slate-300 mb-8 leading-relaxed">Hãy để LSA Design & Build đồng hành cùng bạn kiến tạo không gian sống mơ ước. Liên hệ ngay để nhận tư vấn miễn phí.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400">Hotline</p>
+                                <p class="text-xl font-bold">0766 771 509</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400">Email</p>
+                                <p class="text-lg">dmpaidev@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-blue-400">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400">Địa chỉ</p>
+                                <p class="text-lg">Việt Nam</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 flex space-x-4">
+                        <a href="https://www.facebook.com/profile.php?id=61585771779201" target="_blank" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-blue-900 transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@ai.studio-dongminhphu" target="_blank" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-red-600 transition-all"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@qhomestaygardenvilla" target="_blank" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://zalo.me/g/kodwgn037" target="_blank" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-blue-600 transition-all font-bold text-xs">Zalo</a>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 scroll-element delay-200">
+                    <h3 class="text-xl font-bold mb-6">Gửi yêu cầu tư vấn</h3>
+                    <form @submit.prevent="submitLead">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-slate-400 mb-2">Họ và tên</label>
+                                <input type="text" x-model="form.name" required class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-slate-400 mb-2">Số điện thoại</label>
+                                <input type="tel" x-model="form.phone" required class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-slate-400 mb-2">Loại công trình</label>
+                                <select x-model="form.service" class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors text-white">
+                                    <option value="Kiến trúc">Thiết kế Kiến trúc</option>
+                                    <option value="Nội thất">Thiết kế Nội thất</option>
+                                    <option value="Thi công">Thi công trọn gói</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-slate-400 mb-2">Lời nhắn</label>
+                                <textarea x-model="form.message" rows="4" class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors text-white"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors">
+                                GỬI THÔNG TIN
+                            </button>
+                        </div>
+                        <p x-show="formStatus" class="mt-4 text-green-400 text-center" x-text="formStatus"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-2xl font-bold uppercase tracking-widest">LSA Design & Build</h2>
+                    <p class="text-slate-500 text-sm mt-1">Architecture & Interior Design</p>
+                </div>
+                <div class="text-slate-500 text-sm">
+                    &copy; 2024 LSA Design & Build. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div x-data="{ open: false }" class="fixed bottom-6 right-6 z-50">
+        <div x-show="open" x-transition.origin.bottom.right class="bg-white text-slate-900 w-80 rounded-2xl shadow-2xl mb-4 overflow-hidden">
+            <div class="bg-slate-800 text-white p-4 flex justify-between items-center">
+                <h3 class="font-bold">LSA Assistant</h3>
+                <button @click="open = false"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="h-64 p-4 overflow-y-auto bg-slate-100" id="chat-messages">
+                <div class="flex items-start mb-4">
+                    <div class="bg-slate-800 text-white p-2 rounded-lg rounded-tl-none max-w-[80%] text-sm">
+                        Chào bạn! Tôi là trợ lý ảo của LSA. Bạn cần tư vấn về thiết kế hay thi công?
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 border-t bg-white flex">
+                <input type="text" placeholder="Nhập tin nhắn..." class="flex-1 bg-transparent focus:outline-none text-sm px-2">
+                <button class="text-blue-600 font-bold px-2"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button @click="open = !open" class="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center text-2xl transition-transform hover:scale-110">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

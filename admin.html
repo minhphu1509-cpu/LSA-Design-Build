@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Admin - LSA Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800" x-data="adminApp()">
+
+    <!-- Login Screen -->
+    <div x-show="!loggedIn" class="fixed inset-0 bg-slate-900 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-96">
+            <h2 class="text-2xl font-bold mb-6 text-center text-slate-900">LSA Admin Login</h2>
+            <form @submit.prevent="login">
+                <input type="password" x-model="password" placeholder="Nhập mật khẩu..." class="w-full border p-3 rounded mb-4 focus:ring-2 focus:ring-slate-500 outline-none">
+                <button type="submit" class="w-full bg-slate-900 text-white py-3 rounded font-bold hover:bg-slate-800">Đăng nhập</button>
+                <p x-show="loginError" class="text-red-500 text-sm mt-2 text-center">Mật khẩu không đúng!</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Interface -->
+    <div x-show="loggedIn" class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white flex flex-col">
+            <div class="p-6 font-bold text-2xl tracking-widest border-b border-slate-700">LSA CMS</div>
+            <nav class="flex-1 p-4 space-y-2">
+                <button @click="tab = 'content'" :class="{'bg-blue-600': tab === 'content'}" class="w-full text-left p-3 rounded hover:bg-slate-700 transition">Nội dung Trang chủ</button>
+                <button @click="tab = 'projects'" :class="{'bg-blue-600': tab === 'projects'}" class="w-full text-left p-3 rounded hover:bg-slate-700 transition">Quản lý Dự án</button>
+                <button @click="tab = 'leads'" :class="{'bg-blue-600': tab === 'leads'}" class="w-full text-left p-3 rounded hover:bg-slate-700 transition">Danh sách Liên hệ</button>
+            </nav>
+            <div class="p-4">
+                <button @click="logout" class="w-full p-2 border border-slate-600 rounded hover:bg-red-900/50">Đăng xuất</button>
+                <a href="index.html" target="_blank" class="block text-center mt-2 text-sm text-slate-400 hover:text-white">Xem Website &rarr;</a>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            
+            <!-- Content Tab -->
+            <div x-show="tab === 'content'">
+                <h2 class="text-3xl font-bold mb-6">Chỉnh sửa nội dung</h2>
+                <div class="bg-white p-6 rounded-lg shadow space-y-6 max-w-3xl">
+                    <div>
+                        <label class="block font-bold mb-2">Hero Title</label>
+                        <input type="text" x-model="content.hero_title" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2">Hero Subtitle</label>
+                        <input type="text" x-model="content.hero_subtitle" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2">Hero Description</label>
+                        <textarea x-model="content.hero_desc" class="w-full border p-2 rounded h-24"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-2">Service Subtitle</label>
+                        <input type="text" x-model="content.service_subtitle" class="w-full border p-2 rounded">
+                    </div>
+                    <button @click="saveContent" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700">Lưu Thay Đổi</button>
+                    <p x-show="saveMessage" class="inline-block ml-4 text-green-600" x-text="saveMessage"></p>
+                </div>
+            </div>
+
+            <!-- Projects Tab -->
+            <div x-show="tab === 'projects'">
+                <h2 class="text-3xl font-bold mb-6">Quản lý Dự án</h2>
+                
+                <!-- Add New Project -->
+                <div class="bg-white p-6 rounded-lg shadow mb-8">
+                    <h3 class="font-bold text-lg mb-4">Thêm dự án mới</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" x-model="newProject.title" placeholder="Tên dự án" class="border p-2 rounded">
+                        <select x-model="newProject.category" class="border p-2 rounded">
+                            <option value="villa">Biệt thự</option>
+                            <option value="townhouse">Nhà phố</option>
+                            <option value="penthouse">Penthouse</option>
+                        </select>
+                        <input type="text" x-model="newProject.image" placeholder="URL Hình ảnh" class="border p-2 rounded col-span-2">
+                        <textarea x-model="newProject.desc" placeholder="Mô tả ngắn" class="border p-2 rounded col-span-2"></textarea>
+                    </div>
+                    <button @click="addProject" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Thêm Dự Án</button>
+                </div>
+
+                <!-- List Projects -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <template x-for="(project, index) in projects" :key="index">
+                        <div class="bg-white p-4 rounded shadow flex items-start space-x-4">
+                            <img :src="project.image" class="w-24 h-24 object-cover rounded">
+                            <div class="flex-1">
+                                <h4 class="font-bold" x-text="project.title"></h4>
+                                <span class="text-xs bg-slate-200 px-2 py-1 rounded" x-text="project.category"></span>
+                                <p class="text-sm text-slate-500 mt-1" x-text="project.desc"></p>
+                            </div>
+                            <button @click="removeProject(index)" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i> Xóa</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Leads Tab -->
+            <div x-show="tab === 'leads'">
+                <h2 class="text-3xl font-bold mb-6">Danh sách Liên hệ</h2>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-200">
+                            <tr>
+                                <th class="p-4">Ngày</th>
+                                <th class="p-4">Họ tên</th>
+                                <th class="p-4">Số điện thoại</th>
+                                <th class="p-4">Dịch vụ</th>
+                                <th class="p-4">Lời nhắn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="lead in leads" :key="lead.date">
+                                <tr class="border-b hover:bg-slate-50">
+                                    <td class="p-4 text-sm text-slate-500" x-text="lead.date"></td>
+                                    <td class="p-4 font-bold" x-text="lead.name"></td>
+                                    <td class="p-4" x-text="lead.phone"></td>
+                                    <td class="p-4" x-text="lead.service"></td>
+                                    <td class="p-4 text-sm" x-text="lead.message"></td>
+                                </tr>
+                            </template>
+                            <tr x-show="leads.length === 0">
+                                <td colspan="5" class="p-8 text-center text-slate-500">Chưa có liên hệ nào.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
